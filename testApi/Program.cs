@@ -8,17 +8,22 @@ var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwibmFtZSI6In
 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", $"{token}");
 var uriLogin = "https://localhost:7115/UsersControllercs/login?userName=string&password=string.123A";
 var uriStatus = "https://localhost:7115/statuses";
+string COUNTRY_DOMAIN = "services.rappi.co.cr";
+var uriOther = $"https://{COUNTRY_DOMAIN}/api/v2/restaurants-integrations-public-api/menu";
+var uriTest = "https://microservices.dev.rappi.com";
 
 try
 {
-    var loginUserResponseBody = await ExtensionMethods.GetClientRespnose(client, uriLogin);
-    var statusesResponseBody = await ExtensionMethods.GetClientRespnose(client, uriStatus);
+    var login = await ExtensionMethods.GetClientRespnose<LoginUserDTO>(client, uriLogin);
+    var statuses = await ExtensionMethods.GetClientRespnose<ICollection<StatusDTO>>(client, uriStatus);
+    /*var statusesResponseBody = await ExtensionMethods.GetClientRespnose(client, uriStatus);
+    var otherResponseBody = await ExtensionMethods.GetClientRespnose(client, uriOther);
 
-    var statuses = JsonConvert.DeserializeObject<ICollection<StatusDTO>>(statusesResponseBody);
-    var login = JsonConvert.DeserializeObject<LoginUserDTO>(loginUserResponseBody);
+    var statuses = JsonConvert.DeserializeObject<ICollection<StatusDTO>>(statusesResponseBody);*/
+    /*    var other = JsonConvert.DeserializeObject<LoginUserDTO>(otherResponseBody);*/
 
-    Console.WriteLine(loginUserResponseBody);
-    Console.WriteLine(statusesResponseBody);
+    // Console.WriteLine(loginUserResponseBody);
+    //Console.WriteLine(statusesResponseBody);
     foreach (var status in statuses)
     {
         Console.WriteLine(status.Id + " " + status.Name);
