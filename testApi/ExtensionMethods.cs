@@ -21,15 +21,27 @@ namespace testApi
             return entities;
         }
 
-/*        public static void WriteRepsonses<IEnumerable<<T>>(string responseBody)
+        public static async Task<T> PostClientRequest<T>(this HttpClient client, string uri, HttpContent content)
         {
-            var entities = GetResponseEnitity<IEnumerable<<T>>(responseBody);
-            //Console.WriteLine(responseBody);
-            foreach (var entity in entities)
-            {
-                Console.WriteLine(entity);
-            }
-        }*/
+            HttpResponseMessage response = await client.PostAsync(uri, content);
+
+            response.EnsureSuccessStatusCode();
+
+            string responseBody = await response.Content.ReadAsStringAsync();
+
+            var entities = GetResponseEnitity<T>(responseBody);
+            return entities;
+        }
+
+        /*        public static void WriteRepsonses<IEnumerable<<T>>(string responseBody)
+                {
+                    var entities = GetResponseEnitity<IEnumerable<<T>>(responseBody);
+                    //Console.WriteLine(responseBody);
+                    foreach (var entity in entities)
+                    {
+                        Console.WriteLine(entity);
+                    }
+                }*/
 
         public static T GetResponseEnitity<T>(string responseBody)
         {

@@ -5,30 +5,16 @@ using testApi;
 
 HttpClient client = new HttpClient();
 var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwibmFtZSI6InN0cmluZyIsInJvbGUiOlsiQWRtaW4iLCJVc2VyIl0sIm5iZiI6MTY1MDk3NzEyMiwiZXhwIjoxNjUwOTkxNTIyLCJpYXQiOjE2NTA5NzcxMjJ9._HQjWXA19KIEwpiThGgsdPw6CgxTsMdcCEyqBZ98KDE";
-client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", $"{token}");
-var uriLogin = "https://localhost:7115/UsersControllercs/login?userName=string&password=string.123A";
-var uriStatus = "https://localhost:7115/statuses";
-string COUNTRY_DOMAIN = "services.rappi.co.cr";
-var uriOther = $"https://{COUNTRY_DOMAIN}/api/v2/restaurants-integrations-public-api/menu";
-var uriTest = "https://microservices.dev.rappi.com";
+
+var apiKey = "d455bbf45b2acc31d57cb1ea046fcd77";
+var cityName = "London";
+var uriWeather = $"https://api.openweathermap.org/data/2.5/weather?q={cityName}&appid={apiKey}";
 
 try
 {
-    var login = await ExtensionMethods.GetClientRespnose<LoginUserDTO>(client, uriLogin);
-    var statuses = await ExtensionMethods.GetClientRespnose<ICollection<StatusDTO>>(client, uriStatus);
-    /*var statusesResponseBody = await ExtensionMethods.GetClientRespnose(client, uriStatus);
-    var otherResponseBody = await ExtensionMethods.GetClientRespnose(client, uriOther);
+    var weather = await ExtensionMethods.GetClientRespnose<WeatherDto>(client, uriWeather);
 
-    var statuses = JsonConvert.DeserializeObject<ICollection<StatusDTO>>(statusesResponseBody);*/
-    /*    var other = JsonConvert.DeserializeObject<LoginUserDTO>(otherResponseBody);*/
-
-    // Console.WriteLine(loginUserResponseBody);
-    //Console.WriteLine(statusesResponseBody);
-    foreach (var status in statuses)
-    {
-        Console.WriteLine(status.Id + " " + status.Name);
-    }
-    Console.WriteLine(login.Bara);
+    Console.WriteLine(weather);
 }
 catch (HttpRequestException e)
 {

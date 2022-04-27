@@ -10,6 +10,6 @@ namespace testApi
     public class LoginUserDTO
     {
         [JsonProperty("token")]
-        public string Bara { get; set; }
+        public string TokenByProperty { get; set; }
     }
 }

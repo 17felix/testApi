@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace testApi
 {
-    public  class Temperatures
+    public  class Other
     {
         [JsonProperty("storeId")]
         public long StoreId { get; set; }
